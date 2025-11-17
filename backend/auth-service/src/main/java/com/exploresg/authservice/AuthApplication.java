@@ -1,4 +1,4 @@
-package com.exploresg.auth;
+package com.exploresg.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
