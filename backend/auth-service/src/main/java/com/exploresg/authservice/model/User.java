@@ -41,7 +41,7 @@ public class User implements UserDetails {
     private String familyName;
 
     @Column(name = "picture")
-    private String pictureUrl;
+    private String imageUrl;
 
     @Column(nullable = false)
     @Builder.Default
