@@ -28,8 +28,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private UUID userUuid;
+    @Column(unique = true, nullable = false, updatable = false)
+    @Builder.Default
+    private UUID userUuid=UUID.randomUUID();;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -38,10 +39,13 @@ public class User implements UserDetails {
     private String name;
     private String givenName;
     private String familyName;
+
+    @Column(name = "picture")
     private String pictureUrl;
 
-
-    private Boolean isActive;
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean isActive=true;
 
 
     // @Enumerated(EnumType.STRING)     : Makes it Human readable instead of just numbers
@@ -50,7 +54,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, name = "provider_sub")
     private String identityProviderSub;
 
     @Enumerated(EnumType.STRING)
