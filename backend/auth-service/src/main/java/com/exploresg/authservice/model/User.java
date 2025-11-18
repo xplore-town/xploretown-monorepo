@@ -30,10 +30,12 @@ public class User implements UserDetails {
 
     @Column(unique = true, nullable = false, updatable = false)
     @Builder.Default
-    private UUID userUuid=UUID.randomUUID();;
+    private UUID userUuid = UUID.randomUUID();;
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @SuppressWarnings("unused")
     private String password; // For potential future local auth
 
     private String name;
@@ -45,10 +47,10 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean isActive=true;
+    private Boolean isActive = true;
 
-
-    // @Enumerated(EnumType.STRING)     : Makes it Human readable instead of just numbers
+    // @Enumerated(EnumType.STRING) : Makes it Human readable instead of just
+    // numbers
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -71,7 +73,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
