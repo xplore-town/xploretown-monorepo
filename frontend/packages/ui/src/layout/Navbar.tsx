@@ -14,7 +14,7 @@ export interface NavbarProps {
 
 const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="ml-4 flex items-center gap-2">
       {links.map((link, id) => (
         <Link key={id} to={link.href}>
           {link.label}
@@ -30,7 +30,7 @@ const SignIn: React.FC = () => {
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
   return (
-    <nav className="border-b border-gray-200 bg-white py-2 shadow-md">
+    <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex gap-2">
           <Logo />

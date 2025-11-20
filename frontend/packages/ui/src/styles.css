@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 /* packages/ui/src/styles.css */
 @import "tailwindcss";
 
@@ -6,20 +8,79 @@
 @source "./layout/**/*.{js,jsx,ts,tsx,mdx}";
 @source "./branding/**/*.{js,jsx,ts,tsx,mdx}";
 
-/* 2. Global Theme & Variables */
-@theme {
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --color-brand-primary: #4f46e5; /* indigo-600 */
-}
-
-/* 3. Global Resets */
-html,
-body {
-  @apply bg-gray-50 text-gray-900 antialiased;
-}
-
-/* 4. Optional: expose some utility-level base classes for apps */
 :root {
-  font-family: var(--font-sans);
+  font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Fluid typography base */
+  --font-size-base: clamp(0.875rem, 1.5vw, 1rem);
+  --font-size-sm: clamp(0.8125rem, 1.5vw, 0.875rem);
+  --font-size-xs: clamp(0.75rem, 1.5vw, 0.8125rem);
+  --font-size-lg: clamp(1rem, 2vw, 1.125rem);
+  --font-size-xl: clamp(1.125rem, 2.5vw, 1.25rem);
+  --font-size-2xl: clamp(1.25rem, 3vw, 1.5rem);
+  --font-size-3xl: clamp(1.5rem, 4vw, 1.875rem);
+  --font-size-4xl: clamp(1.875rem, 5vw, 2.25rem);
+  --font-size-5xl: clamp(2.25rem, 6vw, 3rem);
+  --font-size-6xl: clamp(2.5rem, 7vw, 3.75rem);
 }
-@import "tailwindcss";
+
+@keyframes gentle-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.bg-zoom-animate {
+  animation: gentle-zoom 16s ease-in-out infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gentle-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8%);
+  }
+}
+
+.animate-rotate-bounce {
+  animation:
+    rotate 1.2s linear infinite,
+    gentle-bounce 1.2s ease-in-out infinite;
+}
+
+@keyframes bounce-logo {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6%);
+  }
+}
+.animate-bounce-logo {
+  animation: bounce-logo 1s ease-in-out infinite;
+}
