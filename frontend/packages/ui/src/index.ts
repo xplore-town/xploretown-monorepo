@@ -20,14 +20,8 @@
  * ```
  */
 
-// Components
-export { default as Button, type ButtonProps } from "./components/Button";
-export { default as Input, type InputProps } from "./components/Input";
-export { default as Dialog, type DialogProps } from "./components/Dialog";
-export { default as Dropdown, type DropdownProps, type DropdownItem } from "./components/Dropdown";
-export { default as Tabs, type TabsProps, type TabItem } from "./components/Tabs";
-export { default as Card, type CardProps } from "./components/Card";
-export { default as Badge, type BadgeProps } from "./components/Badge";
+// Components (single source of truth in ./components)
+export * from "./components";
 
 // Hooks (placeholder for future)
 // export * from "./hooks";
