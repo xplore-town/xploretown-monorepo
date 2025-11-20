@@ -12,3 +12,4 @@ export { default as Tabs, type TabsProps, type TabItem } from "./Tabs";
 export { default as Card, type CardProps } from "./Card";
 export { default as Badge, type BadgeProps } from "./Badge";
 export { default as Navbar } from "./Navbar";
+export { default as Footer } from "./Footer";
