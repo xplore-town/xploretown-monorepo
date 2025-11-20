@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../branding/Logo";
 
 export interface NavLink {
   label: string;
@@ -11,13 +12,9 @@ export interface NavbarProps {
   links: NavLink[];
 }
 
-const Logo: React.FC<{ logo: React.ReactNode }> = ({ logo }) => {
-  return <div>{logo}</div>;
-};
-
 const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex items-center gap-2">
       {links.map((link, id) => (
         <Link key={id} to={link.href}>
           {link.label}
@@ -31,12 +28,12 @@ const SignIn: React.FC = () => {
   return <Link to={"/signin"}>Signin</Link>;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ logo, links }) => {
+const Navbar: React.FC<NavbarProps> = ({ links }) => {
   return (
-    <nav className="border-b border-gray-200 bg-white shadow-md">
-      <div className="mx-auto flex max-w-7xl justify-between bg-red-300">
+    <nav className="border-b border-gray-200 bg-white py-2 shadow-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex gap-2">
-          <Logo logo={logo} />
+          <Logo />
           <Links links={links} />
         </div>
         <div className="flex">
