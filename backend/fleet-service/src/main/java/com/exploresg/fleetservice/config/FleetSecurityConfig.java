@@ -34,6 +34,7 @@ public class FleetSecurityConfig extends BaseSecurityConfig {
                         "/error",
                         "/hello",
                         "/api/v1/fleet/health",
+                        "/api/v1/fleet/ping",
                         "/api/v1/fleet/models",
                         "/api/v1/fleet/models/*/availability-count",
                         "/api/v1/fleet/operators/*/models",

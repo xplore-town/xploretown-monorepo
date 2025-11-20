@@ -34,6 +34,17 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/operators")
     public ResponseEntity<Map<String,String>> getOperatorsList(){
+
+        /**
+         * {
+         *   "sub": "a3f5c8d2-1234-5678-9abc-def012345678",
+         *   "email": "admin@example.com",
+         *   "roles": ["USER", "ADMIN"],
+         *   "name": "John Admin",
+         *   "iat": 1732140000,
+         *   "exp": 2000000000
+         * }
+         */
         Map<String,String> response = new HashMap<>();
         response.put("message", "Operators list");
         response.put("note", "Only admins can see this!");
