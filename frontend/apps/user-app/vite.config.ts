@@ -17,6 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "@exploresg.frontend/ui/styles": path.resolve(__dirname, "../../packages/ui/src/styles.css"),
       "@exploresg.frontend/ui": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },

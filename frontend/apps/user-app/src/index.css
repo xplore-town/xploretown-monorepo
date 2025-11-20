@@ -1,3 +1,6 @@
-@import "tailwindcss";
+/* apps/user-app/src/index.css */
 
-@source "../../../packages/ui/src/**/*.{js,jsx,ts,tsx}";
+/* Import the Master CSS from the UI package (shared Tailwind setup + globals) */
+@import "@exploresg.frontend/ui/styles";
+
+/* Add any app-specific overrides or extra @source directives below if needed */
