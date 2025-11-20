@@ -9,5 +9,8 @@
     "type-check": "tsc -b",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "@exploresg.frontend/ui": "*"
   }
 }
