@@ -1,0 +1,16 @@
+{
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "tailwindCSS.experimental.classRegex": [
+    ["className\\s*=\\s*[\"'`]([^\"'`]*)[\"'`]", "([^\\s\"'`]+)"],
+    ["class\\s*=\\s*[\"'`]([^\"'`]*)[\"'`]", "([^\\s\"'`]+)"]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.experimental.configFile": null,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

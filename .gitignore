@@ -1,4 +1,3 @@
-.vscode
 .turbo
 */node_modules
 frontend/packages/ui/tsconfig.tsbuildinfo
