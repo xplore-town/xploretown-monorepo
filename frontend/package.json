@@ -4,7 +4,13 @@
     "apps/*",
     "packages/*"
   ],
+  "packageManager": "npm@11.1.0",
   "devDependencies": {
     "turbo": "^2.6.1"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "type-check": "turbo run type-check"
   }
 }

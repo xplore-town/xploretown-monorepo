@@ -1,0 +1,14 @@
+{
+  "tasks": {
+    "dev": {
+      "cache": false
+    },
+    "type-check": {
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": ["^build", "type-check"],
+      "outputs": ["dist/**", ".next/**", "build/**"]
+    }
+  }
+}
