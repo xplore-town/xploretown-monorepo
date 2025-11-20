@@ -1,14 +1,33 @@
 {
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
   "tasks": {
     "dev": {
-      "cache": false
-    },
-    "type-check": {
-      "outputs": []
+      "cache": false,
+      "persistent": true
     },
     "build": {
       "dependsOn": ["^build", "type-check"],
-      "outputs": ["dist/**", ".next/**", "build/**"]
+      "outputs": ["dist/**", ".next/**", "build/**"],
+      "env": ["NODE_ENV"]
+    },
+    "type-check": {
+      "dependsOn": ["^build"],
+      "outputs": ["*.tsbuildinfo"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "outputs": [".eslintcache"]
+    },
+    "format": {
+      "outputs": [],
+      "cache": false
+    },
+    "format:check": {
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
     }
   }
 }
