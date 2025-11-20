@@ -49,6 +49,8 @@ public abstract class BaseSecurityConfig {
 
     /**
      * 🔒 TEMPLATE METHOD - Configure security filter chain
+     * Note: This method is not marked 'final' due to Spring CGLIB proxy limitations,
+     * but it should be treated as final. Override configureRoutes() instead.
      *
      * This is the template that defines the security configuration sequence:
      * 1. CORS (same for all services)
@@ -65,7 +67,7 @@ public abstract class BaseSecurityConfig {
      * @throws Exception
      */
     @Bean
-    public final SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // 1. CORS Configuration (shared)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
