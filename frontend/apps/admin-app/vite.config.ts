@@ -7,6 +7,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react(), tailwind()],
   server: {
+    port: 3003,
     watch: {
       ignored: ["!**/node_modules/@exploresg.frontend/**"],
     },
@@ -16,10 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@exploresg.frontend/ui": path.resolve(
-        __dirname,
-        "../../packages/ui/src"
-      ),
+      "@exploresg.frontend/ui": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },
 });
