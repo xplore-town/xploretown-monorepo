@@ -10,6 +10,8 @@
     "build": "turbo run build",
     "type-check": "turbo run type-check",
     "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "clean": "turbo run clean"
   },
   "devDependencies": {

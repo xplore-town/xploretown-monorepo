@@ -8,7 +8,7 @@ export interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
   return (
-    <button onClick={onClick} className="rounded bg-red-400 p-2 font-bold">
+    <button onClick={onClick} className="rounded bg-red-400 p-4 font-bold">
       {label}
     </button>
   );
