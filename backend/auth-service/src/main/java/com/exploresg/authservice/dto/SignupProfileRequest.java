@@ -1,6 +1,6 @@
 package com.exploresg.authservice.dto;
 
-import com.exploresg.authservice.model.Role;
+import com.exploresg.common.model.Role;
 import lombok.Data;
 
 import java.time.LocalDate;

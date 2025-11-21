@@ -2,7 +2,6 @@ package com.exploresg.fleetservice.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +22,7 @@ public class AdminController {
      * No role check, just authentication.
      */
     @GetMapping("/status")
-    public ResponseEntity<Map<String, String>> adminStatus(){
+    public ResponseEntity<Map<String, String>> adminStatus() {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Admin endpoint accessed successfully");
         response.put("note", "If you see this, your JWT was valid!");
@@ -33,19 +32,19 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/operators")
-    public ResponseEntity<Map<String,String>> getOperatorsList(){
+    public ResponseEntity<Map<String, String>> getOperatorsList() {
 
         /**
          * {
-         *   "sub": "a3f5c8d2-1234-5678-9abc-def012345678",
-         *   "email": "admin@example.com",
-         *   "roles": ["USER", "ADMIN"],
-         *   "name": "John Admin",
-         *   "iat": 1732140000,
-         *   "exp": 2000000000
+         * "sub": "a3f5c8d2-1234-5678-9abc-def012345678",
+         * "email": "admin@example.com",
+         * "roles": ["USER", "ADMIN"],
+         * "name": "John Admin",
+         * "iat": 1732140000,
+         * "exp": 2000000000
          * }
          */
-        Map<String,String> response = new HashMap<>();
+        Map<String, String> response = new HashMap<>();
         response.put("message", "Operators list");
         response.put("note", "Only admins can see this!");
 
