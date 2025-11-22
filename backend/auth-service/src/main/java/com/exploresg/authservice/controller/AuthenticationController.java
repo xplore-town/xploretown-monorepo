@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class GoogleAuthenticationController {
+public class AuthenticationController {
 }
