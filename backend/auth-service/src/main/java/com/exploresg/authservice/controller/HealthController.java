@@ -19,7 +19,7 @@ import java.util.Map;
  * - Load balancers
  * - Manual testing during development
  */
-@RequestMapping("/api/v1/check")
+@RequestMapping("/api/v1/auth")
 @RestController
 public class HealthController {
 

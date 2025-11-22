@@ -5,6 +5,7 @@ import com.exploresg.common.model.IdentityProvider;
 import com.exploresg.common.model.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
@@ -29,12 +30,21 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-@AllArgsConstructor
 public class AuthenticationService {
 
-    private final JwtDecoder jwtDecoder;
+    private final JwtDecoder googleJwtDecoder;
     private final UserService userService;
     private final JwtService jwtService;
+
+    public AuthenticationService(
+            @Qualifier("googleJwtDecoder") JwtDecoder googleJwtDecoder,
+            UserService userService,
+            JwtService jwtService
+    ) {
+        this.googleJwtDecoder = googleJwtDecoder;
+        this.userService = userService;
+        this.jwtService = jwtService;
+    }
 
     /**
      * Authenticate user with Google OAuth token.
@@ -70,7 +80,7 @@ public class AuthenticationService {
         // - Expiration check (exp claim)
         // - Issuer verification (iss claim = accounts.google.com)
         // - Format validation (header.payload.signature structure)
-        Jwt jwt = jwtDecoder.decode(googleToken);
+        Jwt jwt = googleJwtDecoder.decode(googleToken);
 
         // ============================================
         // STEP 2: Extract User Information from Google JWT
