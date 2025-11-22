@@ -66,9 +66,9 @@ public class JwtService {
     // ============================================
 
     /**
-     * Generate JWT token with default claims for the user
-     * 
-     * @param userDetails user to generate token for
+     * Generate JWT token with default claims for the user.
+     *
+     * @param userDetails User to generate token for
      * @return JWT token string
      */
     public String generateToken(UserDetails userDetails) {
@@ -155,9 +155,16 @@ public class JwtService {
     // ============================================
 
     /**
-     * Check if the token is valid for a given user
+     * Check if token is valid for the given user.
      *
-     * @return
+     * Valid if:
+     * - Signature is correct (not forged)
+     * - Token is not expired
+     * - Subject (UUID) matches user's UUID
+     *
+     * @param token JWT token to validate
+     * @param userDetails User to validate against
+     * @return true if valid, false otherwise
      */
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String tokenObject = extractSubject(token);
@@ -165,6 +172,12 @@ public class JwtService {
         return (tokenObject.equals(user.getUserId().toString())) && !isTokenExpired(token);
     }
 
+    /**
+     * Check if token is expired.
+     *
+     * @param token JWT token
+     * @return true if expired, false otherwise
+     */
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
@@ -184,15 +197,47 @@ public class JwtService {
     }
 
     /**
-     * Extract subject from a token
+     * Extract subject (UUID) from token.
      *
-     * @param token JWT Token
-     * @return User's uuid as string
+     * CHANGED FROM MK-I: Now returns UUID string, not email.
+     *
+     * @param token JWT token
+     * @return User's UUID as string
      */
-    private String extractSubject(String token) {
+    public String extractSubject(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    /**
+     * Extract username (email) from token.
+     *
+     * CHANGED FROM MK-I: Now reads from 'email' claim, not 'sub'.
+     *
+     * This method exists for Spring Security compatibility.
+     * Spring Security expects extractUsername() to return the username.
+     * In our system, username = email.
+     *
+     * @param token JWT token
+     * @return User's email
+     */
+    public String extractUsername(String token){
+        return extractClaim(token, claims -> claims.get("email",String.class));
+    }
+
+    /**
+     * Extract a specific claim from token using a resolver function.
+     *
+     * This is a generic method that can extract any claim.
+     *
+     * Example usage:
+     * - extractClaim(token, Claims::getSubject) → Get subject
+     * - extractClaim(token, Claims::getExpiration) → Get expiration
+     * - extractClaim(token, claims -> claims.get("email")) → Get email
+     *
+     * @param token JWT token
+     * @param claimsResolver Function to extract specific claim
+     * @return Extracted claim value
+     */
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -210,10 +255,10 @@ public class JwtService {
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parser()
-                .setSigningKey(getSignInKey())
+                .verifyWith(getSignInKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
 }
