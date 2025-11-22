@@ -1,6 +1,5 @@
 package com.exploresg.authservice.controller;
 
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,15 +32,14 @@ public class HealthController {
      * @return Map containing service status and name
      */
     @GetMapping("/health")
-    public ResponseEntity<Map<String, String>> health(){
+    public ResponseEntity<Map<String, String>> health() {
         return ResponseEntity.ok(Map.of(
-                "status","UP",
-                "service","auth-service"
-        ));
+                "status", "UP",
+                "service", "auth-service"));
     }
 
     @GetMapping("/ping")
-    public String ping(){
+    public String ping() {
         return "pong";
     }
 }
