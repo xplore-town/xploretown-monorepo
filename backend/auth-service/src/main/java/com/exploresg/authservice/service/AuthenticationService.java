@@ -3,7 +3,6 @@ package com.exploresg.authservice.service;
 import com.exploresg.authservice.dto.AuthResponse;
 import com.exploresg.common.model.IdentityProvider;
 import com.exploresg.common.model.User;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -39,8 +38,7 @@ public class AuthenticationService {
     public AuthenticationService(
             @Qualifier("googleJwtDecoder") JwtDecoder googleJwtDecoder,
             UserService userService,
-            JwtService jwtService
-    ) {
+            JwtService jwtService) {
         this.googleJwtDecoder = googleJwtDecoder;
         this.userService = userService;
         this.jwtService = jwtService;
