@@ -83,8 +83,8 @@ public class AuthenticationService {
         // - picture: Profile picture URL
         String providerSub = jwt.getSubject();
         String email = jwt.getClaimAsString("email");
-        String givenName = jwt.getClaimAsString("givenName");
-        String familyName = jwt.getClaimAsString("familyName");
+        String givenName = jwt.getClaimAsString("given_name");
+        String familyName = jwt.getClaimAsString("family_name");
         String picture = jwt.getClaimAsString("picture");
 
         log.debug("Extracted User Info - email: {}, providerSub: {} ", email, providerSub);
@@ -109,7 +109,13 @@ public class AuthenticationService {
         } else {
             // New user - create account
             log.info("New user signing up with email: {}", email);
-            user = userService.createUser(email, providerSub, givenName, familyName, picture);
+            user = userService.createUser(
+                    email,
+                    providerSub,
+                    IdentityProvider.GOOGLE,
+                    givenName,
+                    familyName,
+                    picture);
             log.info("Created new user with UUID: {}", user.getUserId());
         }
 
@@ -141,18 +147,68 @@ public class AuthenticationService {
                 .build();
 
         // Build main AuthResponse with nested userInfo
+        // Check if user has completed their profile (phone, DOB, license, etc.)
+        boolean needsProfileSetup = (user.getUserProfile() == null);
+
         return AuthResponse.builder()
                 .token(customJwt)
-                .requiresProfileSetup(false) // TODO: Check if user has completed profile
+                .requiresProfileSetup(needsProfileSetup)
                 .userInfo(userInfo)
                 .build();
     }
 
+    /**
+     * Update user's profile information from Google OAuth data.
+     *
+     * This is called on every login to ensure user's profile stays in sync
+     * with their Google account. Users might change their profile picture
+     * or name on Google, and we want to reflect those changes.
+     *
+     * Why update on every login?
+     * - User changed profile picture on Google
+     * - User changed their name (marriage, legal name change)
+     * - Keeps our data fresh without manual sync
+     *
+     * @param user       The existing user to update
+     * @param givenName  User's first name from Google
+     * @param familyName User's last name from Google
+     * @param picture    User's profile picture URL from Google
+     */
     private void updateUserFromGoogle(User user,
             String givenName,
             String familyName,
             String picture) {
 
+        // Only update if values have actually changed
+        boolean hasChanges = false;
+
+        if (givenName != null && !givenName.equals(user.getGivenName())) {
+            user.setGivenName(givenName);
+            hasChanges = true;
+        }
+
+        if (familyName != null && !familyName.equals(user.getFamilyName())) {
+            user.setFamilyName(familyName);
+            hasChanges = true;
+        }
+
+        if (picture != null && !picture.equals(user.getPicture())) {
+            user.setPicture(picture);
+            hasChanges = true;
+        }
+
+        // Update full name if first or last name changed
+        if (hasChanges && givenName != null && familyName != null) {
+            user.setFullName(givenName + " " + familyName);
+        }
+
+        if (hasChanges) {
+            log.debug("Updating user profile from Google for: {}", user.getEmail());
+            userService.saveUser(user);
+            log.debug("User profile updated successfully");
+        } else {
+            log.debug("No profile changes detected for user: {}", user.getEmail());
+        }
     }
 
 }

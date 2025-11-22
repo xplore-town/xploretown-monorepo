@@ -29,17 +29,11 @@ import java.util.UUID;
  * - OneToOne relationship with UserProfile for additional user information
  */
 @Entity
-@Table(name = "app_user",
-        indexes = {
-                @Index(name = "idx_user_email", columnList = "email", unique = true)
-        },
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_user_provider_sub",
-                        columnNames = {"identity_provider", "provider_sub"}
-                )
-        }
-)
+@Table(name = "app_user", indexes = {
+        @Index(name = "idx_user_email", columnList = "email", unique = true)
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "uk_user_provider_sub", columnNames = { "identity_provider", "provider_sub" })
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -153,6 +147,18 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IdentityProvider identityProvider;
+
+    // ============================================
+    // RELATIONSHIPS
+    // ============================================
+
+    /**
+     * User's extended profile with personal information.
+     * This is null when user first signs up, and populated
+     * when they complete their profile for transactions.
+     */
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UserProfile userProfile;
 
     // ============================================
     // AUDIT TIMESTAMPS

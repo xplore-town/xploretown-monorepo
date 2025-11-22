@@ -54,6 +54,21 @@ public class UserService {
     }
 
     /**
+     * Save or update an existing user.
+     *
+     * This is used when updating user profile information from OAuth provider
+     * or when modifying user details.
+     *
+     * @param user The user to save
+     * @return Saved user entity
+     */
+    @Transactional
+    @SuppressWarnings("null")
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    /**
      * Create a new user with their profile in a single transaction.
      *
      * This method is called during first-time OAuth login when the user
@@ -79,6 +94,7 @@ public class UserService {
      * @return Saved User entity with UserProfile relationship established
      */
     @Transactional
+    @SuppressWarnings("null")
     public User createUser(
             String email,
             String providerSub,
@@ -92,7 +108,7 @@ public class UserService {
                 .email(email)
                 .providerSub(providerSub)
                 .identityProvider(identityProvider)
-                .fullName(givenName + " "+ familyName)
+                .fullName(givenName + " " + familyName)
                 .givenName(givenName)
                 .familyName(familyName)
                 .picture(picture)
@@ -109,23 +125,24 @@ public class UserService {
      * This is called when user needs to make a booking and provides
      * additional information like phone, date of birth, driving license.
      *
-     * @param user The user to create/update profile for
-     * @param phone User's phone number
-     * @param dateOfBirth User's date of birth
+     * @param user                 The user to create/update profile for
+     * @param phone                User's phone number
+     * @param dateOfBirth          User's date of birth
      * @param drivingLicenseNumber User's driving license (optional)
-     * @param passportNumber User's passport (optional)
-     * @param preferredLanguage User's language preference
-     * @param countryOfResidence User's country of residence
+     * @param passportNumber       User's passport (optional)
+     * @param preferredLanguage    User's language preference
+     * @param countryOfResidence   User's country of residence
      * @return Saved UserProfile entity
      */
     @Transactional
+    @SuppressWarnings("null")
     public UserProfile createOrUpdateUserProfile(User user,
-                                             String phone,
-                                             LocalDate dateOfBirth,
-                                             String drivingLicenseNumber,
-                                             String passportNumber,
-                                             String preferredLanguage,
-                                             String countryOfResidence){
+            String phone,
+            LocalDate dateOfBirth,
+            String drivingLicenseNumber,
+            String passportNumber,
+            String preferredLanguage,
+            String countryOfResidence) {
         UserProfile userProfile = UserProfile.builder()
                 .user(user)
                 .phone(phone)
