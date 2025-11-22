@@ -3,7 +3,6 @@ package com.exploresg.authservice.service;
 import com.exploresg.common.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,10 +67,11 @@ public class JwtService {
 
     /**
      * Generate JWT token with default claims for the user
+     * 
      * @param userDetails user to generate token for
      * @return JWT token string
      */
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
@@ -86,7 +86,7 @@ public class JwtService {
      * @return JWT token string
      */
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return buildToken(extraClaims,userDetails,jwtExpiration);
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     /**
@@ -97,8 +97,8 @@ public class JwtService {
      * - email is a separate claim
      * - roles array has no "ROLE_" prefix
      *
-     * @param extraClaims Additional claims to include
-     * @param userDetails User Details
+     * @param extraClaims   Additional claims to include
+     * @param userDetails   User Details
      * @param jwtExpiration Token expiration time in milliseconds
      * @return JWT token string
      */
@@ -112,20 +112,20 @@ public class JwtService {
         // We want ["USER", "ADMIN"] in the JWT
         var roles = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .map(role->role.replace("ROLE_",""))
+                .map(role -> role.replace("ROLE_", ""))
                 .collect(Collectors.toList());
 
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(user.getUserId().toString())
+                .claims(extraClaims)
+                .subject(user.getUserId().toString())
                 .claim("email", user.getEmail())
-                .claim("roles",roles)
-                .claim("givenName",user.getGivenName())
-                .claim("familyName",user.getFamilyName())
-                .claim("picture",user.getPicture())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+jwtExpiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .claim("roles", roles)
+                .claim("givenName", user.getGivenName())
+                .claim("familyName", user.getFamilyName())
+                .claim("picture", user.getPicture())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSignInKey())
                 .compact();
     }
 
@@ -145,11 +145,10 @@ public class JwtService {
      *
      * @return Signing key for HMAC-SHA256
      */
-    private Key getSignInKey() {
+    private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 
     // ============================================
     // TOKEN VALIDATION
@@ -160,9 +159,9 @@ public class JwtService {
      *
      * @return
      */
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String tokenObject = extractSubject(token);
-        User user = (User)userDetails;
+        User user = (User) userDetails;
         return (tokenObject.equals(user.getUserId().toString())) && !isTokenExpired(token);
     }
 
@@ -194,7 +193,7 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private <T> T extractClaim(String token, Function<Claims,T> claimsResolver) {
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -210,12 +209,11 @@ public class JwtService {
      */
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parserBuilder()
+                .parser()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
-
 
 }
