@@ -1,5 +1,6 @@
 package com.exploresg.authservice.repository;
 
+import com.exploresg.common.model.IdentityProvider;
 import com.exploresg.common.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -53,5 +54,20 @@ public interface UserRepository extends JpaRepository<User,Long> {
      */
     Optional<User> findByProviderSub(String providerSub);
 
-
+    /**
+     * Find a user by email AND identity provider.
+     *
+     * This is critical for multi-provider support. The same email might exist
+     * with different OAuth providers (e.g., user@example.com from Google vs GitHub).
+     * We need BOTH email AND provider to uniquely identify a user.
+     *
+     * Example: If a user signs in with Google (email: john@gmail.com), then later
+     * tries to sign in with GitHub (same email: john@gmail.com), we treat these
+     * as DIFFERENT users because the identity provider differs.
+     *
+     * @param email User's email address
+     * @param identityProvider OAuth provider (GOOGLE, GITHUB, etc.)
+     * @return Optional containing user if found with this email/provider combination, empty otherwise
+     */
+    Optional<User> findByEmailAndIdentityProvider(String email, IdentityProvider identityProvider);
 }
