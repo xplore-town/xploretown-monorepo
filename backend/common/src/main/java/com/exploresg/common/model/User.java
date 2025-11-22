@@ -16,6 +16,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * User entity representing authenticated users in the system.
+ *
+ * This entity implements Spring Security's UserDetails interface to integrate
+ * with Spring Security's authentication and authorization mechanisms.
+ *
+ * Design decisions:
+ * - Dual-ID pattern: Long id (database) + UUID userId (API/external)
+ * - SSO-only: No password field (Google OAuth authentication)
+ * - Role-based authorization via Role enum
+ * - OneToOne relationship with UserProfile for additional user information
+ */
 @Entity
 @Table(name = "app_user",
         indexes = {
