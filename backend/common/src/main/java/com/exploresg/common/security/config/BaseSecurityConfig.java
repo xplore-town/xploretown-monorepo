@@ -71,13 +71,21 @@ public abstract class BaseSecurityConfig {
         http
                 // 1. CORS Configuration (shared)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
                 // 2. CSRF Disabled (stateless APIs don't need CSRF protection)
                 .csrf(csrf -> csrf.disable())
-                // 3. Stateless Session Management (no session cookies)
+
+                // 3. Frame Options (allow H2 console to work)
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.disable()))  // ← ADD THIS
+
+                // 4. Stateless Session Management (no session cookies)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 4. Route Permissions (HOOK - each service implements this)
+
+                // 5. Route Permissions (HOOK - each service implements this)
                 .authorizeHttpRequests(auth -> configureRoutes(auth))
-                // 5. JWT Validation (shared)
+
+                // 6. JWT Validation (shared)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt
                         .decoder(jwtDecoder())
                         .jwtAuthenticationConverter(jwtAuthenticationConverter())));

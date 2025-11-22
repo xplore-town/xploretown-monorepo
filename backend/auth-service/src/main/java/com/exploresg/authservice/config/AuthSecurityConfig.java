@@ -51,6 +51,7 @@ public class AuthSecurityConfig extends BaseSecurityConfig {
                         "/api/v1/auth/google",     // OAuth login endpoint
                         "/api/v1/auth/health",     // Health check
                         "/api/v1/auth/ping",     // Health check
+                        "/h2-console/**",          // ← H2 console access
                         "/error"                    // Error handling
                 ).permitAll()
 
