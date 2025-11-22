@@ -76,12 +76,12 @@ public class JwtService {
     }
 
     /**
-     * Generate JWT Token with custom claims
+     * Generate JWT token with custom claims.
      *
-     * This is the main token generation method
-     * Add user information as claims and signs the token
+     * This is the main token generation method.
+     * Adds user information as claims and signs the token.
      *
-     * @param extraClaims Additional claims to include in the token
+     * @param extraClaims Additional claims to include in token
      * @param userDetails User to generate token for
      * @return JWT token string
      */
@@ -90,15 +90,26 @@ public class JwtService {
     }
 
     /**
-     * Build JWT tokens with claims and expiration
+     * Generate refresh token with minimal claims.
+     * Refresh tokens have longer expiration but fewer claims.
      *
-     * IMPORTANT:
-     * - sub claim now contains UUID
+     * @param userDetails User to generate refresh token for
+     * @return Refresh token string
+     */
+    public String generateRefreshToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+    }
+
+    /**
+     * Build JWT token with claims and expiration.
+     *
+     * IMPORTANT CHANGES FROM MK-I:
+     * - sub claim now contains UUID (not email)
      * - email is a separate claim
-     * - roles array has no "ROLE_" prefix
+     * - roles array has NO "ROLE_" prefix
      *
      * @param extraClaims   Additional claims to include
-     * @param userDetails   User Details
+     * @param userDetails   User details
      * @param jwtExpiration Token expiration time in milliseconds
      * @return JWT token string
      */
@@ -162,7 +173,7 @@ public class JwtService {
      * - Token is not expired
      * - Subject (UUID) matches user's UUID
      *
-     * @param token JWT token to validate
+     * @param token       JWT token to validate
      * @param userDetails User to validate against
      * @return true if valid, false otherwise
      */
@@ -220,8 +231,8 @@ public class JwtService {
      * @param token JWT token
      * @return User's email
      */
-    public String extractUsername(String token){
-        return extractClaim(token, claims -> claims.get("email",String.class));
+    public String extractUsername(String token) {
+        return extractClaim(token, claims -> claims.get("email", String.class));
     }
 
     /**
@@ -234,7 +245,7 @@ public class JwtService {
      * - extractClaim(token, Claims::getExpiration) → Get expiration
      * - extractClaim(token, claims -> claims.get("email")) → Get email
      *
-     * @param token JWT token
+     * @param token          JWT token
      * @param claimsResolver Function to extract specific claim
      * @return Extracted claim value
      */
