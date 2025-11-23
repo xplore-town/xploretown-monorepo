@@ -14,7 +14,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "loglevel": "^1.9.2"
+    "loglevel": "^1.9.2",
+    "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
     "rimraf": "^6.0.0",

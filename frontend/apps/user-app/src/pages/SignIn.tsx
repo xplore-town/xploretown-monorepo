@@ -1,6 +1,6 @@
 import { Card } from "@exploresg.frontend/ui";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
-import { logger } from "@exploresg.frontend/utils";
+import { logger, getRoles, Role } from "@exploresg.frontend/utils";
 import axios from "axios";
 
 const SignIn = () => {
@@ -21,6 +21,13 @@ const SignIn = () => {
       logger.info("Phase 2: Sending token to the backend");
 
       // Call Springboot backend
+      const res = await axios.post("http://localhost:8081/api/v1/auth/google", {
+        googleToken: googleToken,
+      });
+
+      const { token, userInfo, requiresProfileSetup } = res.data;
+      const roles: Role[] = getRoles(token);
+      logger.debug(token, userInfo, requiresProfileSetup, roles);
     } catch (error) {
       logger.error("Phase 2 Failed:  Backend rejected the token", error);
     }
