@@ -1,14 +1,13 @@
 {
-  "name": "@exploresg.frontend/ui",
+  "name": "@exploresg.frontend/utils",
   "version": "1.0.0",
-  "description": "Shared UI components for exploresg frontend apps",
+  "description": "Shared utility functions and loggers for exploresg",
   "license": "ISC",
   "author": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./styles": "./src/styles.css"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsc -b",
@@ -17,14 +16,11 @@
     "test:ui": "vitest --ui",
     "clean": "rimraf dist"
   },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+  "dependencies": {
+    "loglevel": "^1.9.2"
   },
   "devDependencies": {
-    "rimraf": "^6.0.0",
     "typescript": "^5.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/node": "^20.0.0"
   }
 }
