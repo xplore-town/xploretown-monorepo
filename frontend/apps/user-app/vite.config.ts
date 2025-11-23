@@ -13,12 +13,13 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ["@exploresg.frontend/ui"],
+    exclude: ["@exploresg.frontend/ui", "@exploresg.frontend/utils"],
   },
   resolve: {
     alias: {
       "@exploresg.frontend/ui/styles": path.resolve(__dirname, "../../packages/ui/src/styles.css"),
       "@exploresg.frontend/ui": path.resolve(__dirname, "../../packages/ui/src"),
+      "@exploresg.frontend/utils": path.resolve(__dirname, "../../packages/utils/src"),
     },
   },
 });

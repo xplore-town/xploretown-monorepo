@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "composite": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "vite/client"]
   },
   "include": ["src"]
 }

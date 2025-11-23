@@ -1,12 +1,12 @@
 import { Card } from "@exploresg.frontend/ui";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
+import { logger } from "@exploresg.frontend/utils";
 
 const SignIn = () => {
   const handleSuccess = (credentialResponse: CredentialResponse) => {
-    console.log("-----------------------------------");
-    console.log("PHASE 1 SUCCESS: Google JWT Received");
-    console.log("Token:", credentialResponse.credential);
-    console.log("-----------------------------------");
+    logger.info("Phase 1: Google Auth Successful");
+
+    logger.debug("Received Token:", credentialResponse.credential);
   };
   const handleError = () => {
     console.log("Google login failed");
