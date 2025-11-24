@@ -1,15 +1,16 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import React from "react";
+import type { BaseComponentProps, ValueCallback } from "../types";
 
 export interface TabItem {
   label: string;
   content: React.ReactNode;
 }
 
-export interface TabsProps {
+export interface TabsProps extends BaseComponentProps {
   tabs: TabItem[];
   defaultIndex?: number;
-  onChange?: (index: number) => void;
+  onChange?: ValueCallback<number>;
 }
 
 const Tabs: React.FC<TabsProps> = ({ tabs, defaultIndex = 0, onChange }) => {

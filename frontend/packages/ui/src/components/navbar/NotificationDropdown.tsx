@@ -1,12 +1,12 @@
 import React from "react";
 import { TbBell, TbCheck } from "react-icons/tb";
-import type { NotificationItem as NotificationItemType } from "../../types/navbar";
+import type { NotificationItem as NotificationItemType, VoidCallback } from "../../types";
 import NotificationItem from "./NotificationItem";
 import Popover from "../Popover";
 
 export interface NotificationDropdownProps {
   notifications: NotificationItemType[];
-  onViewAll?: () => void;
+  onViewAll?: VoidCallback;
 }
 
 const NotificationDropdown: React.FC<NotificationDropdownProps> = ({

@@ -1,3 +1,10 @@
+/**
+ * Navbar-specific types
+ */
+
+/**
+ * Notification item structure
+ */
 export interface NotificationItem {
   id: string;
   title: string;
@@ -7,18 +14,19 @@ export interface NotificationItem {
   icon?: string;
   isOnline?: boolean;
   isAway?: boolean;
+  read?: boolean;
+  link?: string;
 }
 
-export interface UserProfile {
-  name: string;
-  role: string;
-  avatar: string;
-  picture?: string;
-}
-
-export interface ProfileMenuItem {
+/**
+ * Notification action/button
+ */
+export interface NotificationAction {
   label: string;
-  icon: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
+  onClick: () => void;
+  variant?: "primary" | "secondary";
 }
+
+// Re-export from centralized locations
+export type { NavbarUser } from "./user";
+export type { ProfileMenuItem, NavLink } from "./navigation";

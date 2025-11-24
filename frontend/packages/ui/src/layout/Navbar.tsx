@@ -1,21 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
-import type { NotificationItem, ProfileMenuItem } from "../types/navbar";
+import type { NotificationItem, NavbarUser, ProfileMenuItem, NavLink } from "../types";
 import { NotificationDropdown, ProfileDropdown } from "../components";
-import type { Role } from "@exploresg.frontend/utils";
-
-export interface NavLink {
-  label: string;
-  href: string;
-}
-
-export interface NavbarUser {
-  name: string;
-  email: string;
-  picture?: string;
-  roles?: Role[];
-}
 
 export interface NavbarProps {
   // logo: React.ReactNode;

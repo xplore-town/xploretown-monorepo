@@ -1,9 +1,11 @@
 import React from "react";
+import type { BaseComponentProps, VoidCallback } from "../types";
 
-export interface ButtonProps {
+export interface ButtonProps extends BaseComponentProps {
   label: string;
-  onClick?: () => void;
+  onClick?: VoidCallback;
   variant?: "primary" | "secondary";
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ label, onClick }) => {

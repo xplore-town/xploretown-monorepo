@@ -1,16 +1,17 @@
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import React from "react";
+import type { BaseComponentProps, VoidCallback, Alignment } from "../types";
 
 export interface DropdownItem {
   label: string;
-  onClick: () => void;
+  onClick: VoidCallback;
   disabled?: boolean;
 }
 
-export interface DropdownProps {
+export interface DropdownProps extends BaseComponentProps {
   items: DropdownItem[];
   trigger: React.ReactNode;
-  align?: "left" | "right";
+  align?: Extract<Alignment, "left" | "right">;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ items, trigger, align = "left" }) => {

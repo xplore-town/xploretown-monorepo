@@ -1,6 +1,7 @@
 import React from "react";
+import type { BaseComponentProps } from "../types";
 
-export interface CardProps {
+export interface CardProps extends BaseComponentProps {
   title?: string;
   description?: string;
   children?: React.ReactNode;

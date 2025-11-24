@@ -1,10 +1,10 @@
 import React from "react";
+import type { BaseComponentProps } from "../types";
 
-export interface BadgeProps {
+export interface BadgeProps extends BaseComponentProps {
   label: string;
   variant?: "default" | "success" | "warning" | "error" | "info";
   size?: "sm" | "md" | "lg";
-  className?: string;
 }
 
 const variantClasses = {

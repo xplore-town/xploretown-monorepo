@@ -1,16 +1,18 @@
 import log from "loglevel";
 
-// Vite sets import.meta.env.PROD to true in production builds
-// We use a safe check in case this is run in a non-Vite environment (like Jest)
-const isProduction = import.meta.env ? import.meta.env.PROD : false;
-
-if (isProduction) {
-  log.setLevel("WARN");
-} else {
-  log.setLevel("TRACE");
-}
+// Default to development mode
+// Applications using this logger can call logger.setLevel() to override
+// based on their own environment detection (e.g., import.meta.env.PROD in Vite apps)
+log.setLevel("TRACE");
 
 export const logger = {
+  /**
+   * Set the logging level programmatically
+   * @param level - "trace" | "debug" | "info" | "warn" | "error" | "silent"
+   */
+  setLevel: (level: log.LogLevelDesc) => {
+    log.setLevel(level);
+  },
   trace: (...msg: unknown[]) => {
     log.trace(...msg);
   },

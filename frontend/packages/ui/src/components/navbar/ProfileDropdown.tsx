@@ -2,14 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TbUser, TbLogout } from "react-icons/tb";
 import { Role } from "@exploresg.frontend/utils";
-import type { ProfileMenuItem } from "../../types/navbar";
+import type { ProfileMenuItem, NavbarUser, VoidCallback } from "../../types";
 import Popover from "../Popover";
-import { NavbarUser } from "../../layout/Navbar";
 
 export interface ProfileDropdownProps {
   user: NavbarUser;
   menuItems: ProfileMenuItem[];
-  onSignOut?: () => void;
+  onSignOut?: VoidCallback;
 }
 
 const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems, onSignOut }) => {

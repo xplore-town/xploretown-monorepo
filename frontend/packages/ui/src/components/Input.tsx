@@ -1,6 +1,9 @@
 import React from "react";
+import type { BaseComponentProps } from "../types";
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    BaseComponentProps {
   label?: string;
   error?: string;
 }

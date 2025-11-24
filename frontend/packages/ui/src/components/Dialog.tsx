@@ -5,13 +5,14 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import React from "react";
+import type { BaseComponentProps, VoidCallback, Size } from "../types";
 
-export interface DialogProps {
+export interface DialogProps extends BaseComponentProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: VoidCallback;
   title?: string;
   children: React.ReactNode;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: Extract<Size, "sm" | "md" | "lg" | "xl">;
 }
 
 const sizeClasses = {

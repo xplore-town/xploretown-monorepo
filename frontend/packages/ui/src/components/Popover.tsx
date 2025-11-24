@@ -1,10 +1,11 @@
 import React from "react";
 import { Popover as HeadlessPopover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import type { BaseComponentProps, Alignment } from "../types";
 
 /**
  * Props for the reusable Popover component.
  */
-export interface PopoverProps {
+export interface PopoverProps extends BaseComponentProps {
   /**
    * The element that toggles the popover when clicked.
    * Usually a button, icon, or avatar.
@@ -23,7 +24,7 @@ export interface PopoverProps {
    * Alignment of the dropdown relative to the trigger.
    * @default "right"
    */
-  align?: "left" | "right";
+  align?: Extract<Alignment, "left" | "right">;
 
   /**
    * Optional className to override default styles (e.g., width).
