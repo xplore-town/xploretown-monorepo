@@ -3,12 +3,32 @@ import { ProfileMenuItem } from "../../types";
 import React from "react";
 import Popover from "../Popover";
 import { Link } from "react-router-dom";
+import { Role } from "@exploresg.frontend/utils";
 
 export interface ProfileDropdownProps {
   user: NavbarUser;
   menuItems: ProfileMenuItem[];
 }
+
 const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems }) => {
+  // Role hierarchy: ADMIN > FLEET_MANAGER > MANAGER > SUPPORT > USER
+  const roleHierarchy = [Role.ADMIN, Role.FLEET_MANAGER, Role.MANAGER, Role.SUPPORT, Role.USER];
+
+  const getHighestRole = (): string => {
+    if (!user.roles || user.roles.length === 0) return "User";
+
+    for (const role of roleHierarchy) {
+      if (user.roles.includes(role)) {
+        return role
+          .replace(/_/g, " ")
+          .toLowerCase()
+          .replace(/\b\w/g, (l) => l.toUpperCase());
+      }
+    }
+
+    return "User";
+  };
+
   const Trigger = (
     <div className="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 hover:text-blue-600">
       <img src={user.picture} className="max-h-full max-w-full rounded-full" />
@@ -22,14 +42,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems }) =>
         <img src={user.picture} className="h-10 w-10 rounded-full" />
         <div className="flex flex-col">
           <h1>{user.name}</h1>
-          <p className="text-xs text-gray-500">
-            {user.roles && user.roles.length > 0
-              ? user.roles[0]
-                  .replace(/_/g, " ")
-                  .toLowerCase()
-                  .replace(/\b\w/g, (l) => l.toUpperCase())
-              : "User"}
-          </p>
+          <p className="text-xs text-gray-500">{getHighestRole()}</p>
         </div>
       </div>
 
