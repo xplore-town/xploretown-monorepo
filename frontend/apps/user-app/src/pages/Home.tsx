@@ -1,20 +1,20 @@
-import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { setUser, clearUser } from "../store/slices/userSlice";
-import { useTheme } from "../context/useTheme";
-import { Button } from "@exploresg.frontend/ui";
+// import { useAppSelector, useAppDispatch } from "../store/hooks";
+// import { setUser, clearUser } from "../store/slices/userSlice";
+// import { useTheme } from "../context/useTheme";
+// import { Button } from "@exploresg.frontend/ui";
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
-  const { theme, toggleTheme } = useTheme();
+  // const dispatch = useAppDispatch();
+  // const user = useAppSelector((state) => state.user);
+  // const { theme, toggleTheme } = useTheme();
 
-  const handleLogin = () => {
-    dispatch(setUser({ name: "John Doe", email: "john@example.com" }));
-  };
+  // const handleLogin = () => {
+  //   dispatch(setUser({ name: "John Doe", email: "john@example.com" }));
+  // };
 
-  const handleLogout = () => {
-    dispatch(clearUser());
-  };
+  // const handleLogout = () => {
+  //   dispatch(clearUser());
+  // };
 
   return (
     <div className="p-8">
@@ -23,7 +23,7 @@ const Home = () => {
 
       <div className="mt-8 space-y-4">
         {/* Redux Example */}
-        <div className="rounded-lg border p-4">
+        {/* <div className="rounded-lg border p-4">
           <h2 className="text-xl font-semibold">Redux State</h2>
           {user.isAuthenticated ? (
             <div>
@@ -37,14 +37,14 @@ const Home = () => {
               <Button label="Login" onClick={handleLogin} />
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Context Example */}
-        <div className="rounded-lg border p-4">
+        {/* <div className="rounded-lg border p-4">
           <h2 className="text-xl font-semibold">Context State</h2>
           <p>Current theme: {theme}</p>
           <Button label="Toggle Theme" onClick={toggleTheme} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
