@@ -1,18 +1,42 @@
+/**
+ * @exploresg.frontend/ui - Global Styles
+ * * This file serves as the single source of truth for the Design System.
+ * It initializes Tailwind CSS v4, sets up typography, and defines shared utilities.
+ * * Usage:
+ * Apps should import this file once in their root (e.g., `src/main.tsx` or `src/index.css`).
+ * @import "@exploresg.frontend/ui/styles";
+ */
+
+/* -------------------------------------------------------------------------- */
+/* 1. EXTERNAL DEPENDENCIES                                                   */
+/* -------------------------------------------------------------------------- */
+
+/* Primary Font: Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+/* Initialize Tailwind CSS v4 framework */
 @import "tailwindcss";
 
-/* 1. Source Scanning */
+/* -------------------------------------------------------------------------- */
+/* 2. CONTENT SCANNING (Monorepo Configuration)                               */
+/* -------------------------------------------------------------------------- */
+/* * Tailwind v4 JIT (Just-In-Time) engine needs to know where to look for class names.
+ * Since this file lives in `packages/ui`, we explicitly point to the component sources.
+ * This ensures that classes used in `packages/ui` are generated even if the 
+ * consuming app doesn't have them in its own source code.
+ */
 @source "./components/**/*.{js,jsx,ts,tsx,mdx}";
 @source "./layout/**/*.{js,jsx,ts,tsx,mdx}";
 @source "./branding/**/*.{js,jsx,ts,tsx,mdx}";
 
-/* 2. Theme Configuration (Tailwind v4) 
-   Instead of just putting variables in :root, putting them in @theme 
-   makes them available as actual Tailwind classes (e.g., text-fluid-xl).
-*/
+/* -------------------------------------------------------------------------- */
+/* 3. DESIGN TOKENS & THEME CONFIGURATION                                     */
+/* -------------------------------------------------------------------------- */
 @theme {
-  /* Fluid Typography */
+  /* * Fluid Typography Scale
+   * Uses `clamp()` to smoothly scale text between a minimum (mobile) and maximum (desktop) size.
+   * Access via: `text-fluid-base`, `text-fluid-xl`, etc.
+   */
   --font-size-fluid-base: clamp(0.875rem, 1.5vw, 1rem);
   --font-size-fluid-sm: clamp(0.8125rem, 1.5vw, 0.875rem);
   --font-size-fluid-xs: clamp(0.75rem, 1.5vw, 0.8125rem);
@@ -21,7 +45,9 @@
   --font-size-fluid-2xl: clamp(1.25rem, 3vw, 1.5rem);
   --font-size-fluid-3xl: clamp(1.5rem, 4vw, 1.875rem);
 
-  /* Animation keyframes */
+  /* * Custom Animation Keyframes & Utilities 
+   * Putting them here automatically generates `animate-{name}` utility classes.
+   */
   --animate-gentle-zoom: gentle-zoom 16s ease-in-out infinite;
   --animate-rotate-bounce: rotate 1.2s linear infinite, gentle-bounce 1.2s ease-in-out infinite;
   --animate-bounce-logo: bounce-logo 1s ease-in-out infinite;
@@ -63,13 +89,16 @@
   }
 }
 
-/* 3. Base Styles */
+/* -------------------------------------------------------------------------- */
+/* 4. GLOBAL RESET (Base Layer)                                               */
+/* -------------------------------------------------------------------------- */
 @layer base {
   :root {
     font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
+    /* Improve font rendering across OS/Browsers */
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -77,16 +106,19 @@
   }
 }
 
-/* 4. Custom Utilities */
+/* -------------------------------------------------------------------------- */
+/* 5. SHARED UTILITIES                                                        */
+/* -------------------------------------------------------------------------- */
 @layer utilities {
-  /* Scrollbar Styling (Cross-Browser) */
+  /* --- Cross-Browser Custom Scrollbars --- */
+
+  /* Utility for Firefox/Standard compliance */
   .scrollbar-thin {
-    /* Firefox */
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
   }
 
-  /* Webkit (Chrome/Edge/Safari) */
+  /* Webkit (Chrome, Edge, Safari) overrides */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -95,14 +127,17 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1; /* gray-300 */
+    background-color: #cbd5e1; /* gray-300 matching Tailwind palette */
     border-radius: 20px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #94a3b8; /* gray-400 */
+    background-color: #94a3b8; /* gray-400 on hover */
   }
 
-  /* Animation Helpers with Performance hints */
+  /* --- Performance-Optimized Animations --- */
+  /* Using `will-change` ensures the browser promotes these elements 
+     to a new compositor layer, preventing layout thrashing during animation. */
+
   .bg-zoom-animate {
     animation: var(--animate-gentle-zoom);
     will-change: transform;
