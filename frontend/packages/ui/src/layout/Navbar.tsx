@@ -63,9 +63,8 @@ const Navbar: React.FC<NavbarProps> = ({
           <Links links={links} />
         </div>
 
-        <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
-
-        <div className="flex">
+        <div className="flex items-center gap-4">
+          <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
           {isAuthenticated && user ? (
             <button onClick={onLogout}>Logout</button>
           ) : (
