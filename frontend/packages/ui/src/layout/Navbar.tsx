@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, isAuthenticated, user, onLogin, 
         </div>
 
         <div className="flex">
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <button onClick={onLogout}>Logout</button>
           ) : (
             <button onClick={onLogin}>Login</button>
