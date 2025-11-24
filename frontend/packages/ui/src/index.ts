@@ -30,4 +30,4 @@ export * from "./components";
 // export * from "./utils";
 
 // Types (placeholder for future)
-// export type * from "./types";
+export * from "./types";

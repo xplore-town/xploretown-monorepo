@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
-import { NotificationDropdown } from "@ui/components";
-import { NotificationItem } from "@ui/types/navbar";
+import { NotificationItem } from "../types/navbar";
+import { NotificationDropdown } from "../components";
 
 export interface NavLink {
   label: string;
@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({
   onViewAllNotifications,
 }) => {
   return (
-    <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 shadow-md">
+    <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 text-sm shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex gap-2">
           <Logo />
