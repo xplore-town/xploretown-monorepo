@@ -20,3 +20,5 @@ export {
   default as NotificationDropdown,
   type NotificationDropdownProps,
 } from "./navbar/NotificationDropdown";
+
+export { default as ProfileDropdown } from "./navbar/ProfileDropdown";

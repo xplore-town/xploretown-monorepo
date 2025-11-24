@@ -13,11 +13,12 @@ export interface UserProfile {
   name: string;
   role: string;
   avatar: string;
+  picture?: string;
 }
 
 export interface ProfileMenuItem {
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   href?: string;
   onClick?: () => void;
 }

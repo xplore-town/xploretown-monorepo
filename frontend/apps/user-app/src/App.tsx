@@ -1,7 +1,13 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Footer, Navbar, type NotificationItem } from "@exploresg.frontend/ui";
+import {
+  Footer,
+  Navbar,
+  type NotificationItem,
+  type ProfileMenuItem,
+} from "@exploresg.frontend/ui";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { clearUser } from "./store/slices/userSlice";
+import { TbCalendar, TbSettings, TbUser } from "react-icons/tb";
 
 const userLinks = [
   { label: "Home", href: "/" },
@@ -60,6 +66,25 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     isAway: true,
   },
 ];
+
+const MENU_ITEMS: ProfileMenuItem[] = [
+  {
+    label: "My Profile",
+    icon: <TbUser />, // <--- Pass Component
+    href: "/profile",
+  },
+  {
+    label: "My Bookings",
+    icon: <TbCalendar />,
+    href: "/bookings",
+  },
+  {
+    label: "Settings",
+    icon: <TbSettings />,
+    href: "/settings",
+  },
+];
+
 const App = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -91,8 +116,8 @@ const App = () => {
         onLogin={handleLogin}
         onLogout={handleLogout}
         user={navbarUser}
-        // notifications={[]}
         notifications={MOCK_NOTIFICATIONS}
+        profileMenuItems={MENU_ITEMS}
       />
       <main className="flex-1">
         <Outlet />

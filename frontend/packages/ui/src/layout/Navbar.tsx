@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
-import type { NotificationItem } from "../types/navbar";
-import { NotificationDropdown } from "../components";
+import type { NotificationItem, ProfileMenuItem } from "../types/navbar";
+import { NotificationDropdown, ProfileDropdown } from "../components";
 
 export interface NavLink {
   label: string;
@@ -24,6 +24,8 @@ export interface NavbarProps {
 
   notifications?: NotificationItem[];
   onViewAllNotifications?: () => void;
+
+  profileMenuItems: ProfileMenuItem[];
 
   // Add Callback for Actions
   onLogin?: () => void;
@@ -51,9 +53,10 @@ const Navbar: React.FC<NavbarProps> = ({
   isAuthenticated,
   user,
   onLogin,
-  onLogout,
+  // onLogout,
   notifications = [],
   onViewAllNotifications,
+  profileMenuItems,
 }) => {
   return (
     <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 text-sm shadow-md">
@@ -66,7 +69,8 @@ const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4">
           <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
           {isAuthenticated && user ? (
-            <button onClick={onLogout}>Logout</button>
+            // <button onClick={onLogout}>Logout</button>
+            <ProfileDropdown user={user} menuItems={profileMenuItems} />
           ) : (
             <button onClick={onLogin}>Login</button>
           )}
