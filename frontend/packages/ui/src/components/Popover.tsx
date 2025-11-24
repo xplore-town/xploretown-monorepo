@@ -14,12 +14,8 @@ export interface PopoverProps {
 const Popover: React.FC<PopoverProps> = ({ trigger, children }) => {
   return (
     <HeadlessPopover className="relative">
-      <PopoverButton className="text-sm">{trigger}</PopoverButton>
-      <PopoverPanel
-        transition
-        anchor="bottom"
-        className="divide-y divide-white/5 rounded-xl bg-white/5 text-sm/6 transition duration-200 ease-in-out [--anchor-gap:--spacing(5)] data-closed:-translate-y-1 data-closed:opacity-0"
-      >
+      <PopoverButton className="">{trigger}</PopoverButton>
+      <PopoverPanel transition anchor="bottom" className="">
         {children}
       </PopoverPanel>
     </HeadlessPopover>
