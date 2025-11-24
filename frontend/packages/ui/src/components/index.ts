@@ -22,3 +22,4 @@ export {
 } from "./navbar/NotificationDropdown";
 
 export { default as ProfileDropdown } from "./navbar/ProfileDropdown";
+export { default as MobileMenu } from "./navbar/MobileMenu";

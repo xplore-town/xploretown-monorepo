@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
 import type { NotificationItem, NavbarUser, ProfileMenuItem, NavLink } from "../types";
-import { NotificationDropdown, ProfileDropdown } from "../components";
+import { MobileMenu, NotificationDropdown, ProfileDropdown } from "../components";
 
 export interface NavbarProps {
   // logo: React.ReactNode;
@@ -33,10 +33,6 @@ const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
   );
 };
 
-// const SignIn: React.FC = () => {
-//   return <Link to={"/signin"}>Signin</Link>;
-// };
-
 const Navbar: React.FC<NavbarProps> = ({
   links,
   isAuthenticated,
@@ -51,15 +47,20 @@ const Navbar: React.FC<NavbarProps> = ({
     <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 text-sm shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex gap-2">
+          <MobileMenu links={links} />
           <Logo />
           <Links links={links} />
         </div>
 
         <div className="flex items-center gap-4">
-          <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
           {isAuthenticated && user ? (
-            // <button onClick={onLogout}>Logout</button>
-            <ProfileDropdown user={user} menuItems={profileMenuItems} onSignOut={onLogout} />
+            <>
+              <NotificationDropdown
+                notifications={notifications}
+                onViewAll={onViewAllNotifications}
+              />
+              <ProfileDropdown user={user} menuItems={profileMenuItems} onSignOut={onLogout} />
+            </>
           ) : (
             <button onClick={onLogin}>Login</button>
           )}
