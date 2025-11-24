@@ -1,86 +1,118 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-/* packages/ui/src/styles.css */
 @import "tailwindcss";
 
-/* 1. Self-Scanning: Tell Tailwind to always look at files in this package's folders relative to THIS css file. */
+/* 1. Source Scanning */
 @source "./components/**/*.{js,jsx,ts,tsx,mdx}";
 @source "./layout/**/*.{js,jsx,ts,tsx,mdx}";
 @source "./branding/**/*.{js,jsx,ts,tsx,mdx}";
 
-:root {
-  font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* 2. Theme Configuration (Tailwind v4) 
+   Instead of just putting variables in :root, putting them in @theme 
+   makes them available as actual Tailwind classes (e.g., text-fluid-xl).
+*/
+@theme {
+  /* Fluid Typography */
+  --font-size-fluid-base: clamp(0.875rem, 1.5vw, 1rem);
+  --font-size-fluid-sm: clamp(0.8125rem, 1.5vw, 0.875rem);
+  --font-size-fluid-xs: clamp(0.75rem, 1.5vw, 0.8125rem);
+  --font-size-fluid-lg: clamp(1rem, 2vw, 1.125rem);
+  --font-size-fluid-xl: clamp(1.125rem, 2.5vw, 1.25rem);
+  --font-size-fluid-2xl: clamp(1.25rem, 3vw, 1.5rem);
+  --font-size-fluid-3xl: clamp(1.5rem, 4vw, 1.875rem);
 
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+  /* Animation keyframes */
+  --animate-gentle-zoom: gentle-zoom 16s ease-in-out infinite;
+  --animate-rotate-bounce: rotate 1.2s linear infinite, gentle-bounce 1.2s ease-in-out infinite;
+  --animate-bounce-logo: bounce-logo 1s ease-in-out infinite;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Fluid typography base */
-  --font-size-base: clamp(0.875rem, 1.5vw, 1rem);
-  --font-size-sm: clamp(0.8125rem, 1.5vw, 0.875rem);
-  --font-size-xs: clamp(0.75rem, 1.5vw, 0.8125rem);
-  --font-size-lg: clamp(1rem, 2vw, 1.125rem);
-  --font-size-xl: clamp(1.125rem, 2.5vw, 1.25rem);
-  --font-size-2xl: clamp(1.25rem, 3vw, 1.5rem);
-  --font-size-3xl: clamp(1.5rem, 4vw, 1.875rem);
-  --font-size-4xl: clamp(1.875rem, 5vw, 2.25rem);
-  --font-size-5xl: clamp(2.25rem, 6vw, 3rem);
-  --font-size-6xl: clamp(2.5rem, 7vw, 3.75rem);
+  @keyframes gentle-zoom {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes gentle-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8%);
+    }
+  }
+  @keyframes bounce-logo {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6%);
+    }
+  }
 }
 
-@keyframes gentle-zoom {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-.bg-zoom-animate {
-  animation: gentle-zoom 16s ease-in-out infinite;
-}
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+/* 3. Base Styles */
+@layer base {
+  :root {
+    font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-@keyframes gentle-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
+/* 4. Custom Utilities */
+@layer utilities {
+  /* Scrollbar Styling (Cross-Browser) */
+  .scrollbar-thin {
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
   }
-  50% {
-    transform: translateY(-8%);
-  }
-}
 
-.animate-rotate-bounce {
-  animation:
-    rotate 1.2s linear infinite,
-    gentle-bounce 1.2s ease-in-out infinite;
-}
+  /* Webkit (Chrome/Edge/Safari) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1; /* gray-300 */
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8; /* gray-400 */
+  }
 
-@keyframes bounce-logo {
-  0%,
-  100% {
-    transform: translateY(0);
+  /* Animation Helpers with Performance hints */
+  .bg-zoom-animate {
+    animation: var(--animate-gentle-zoom);
+    will-change: transform;
   }
-  50% {
-    transform: translateY(-6%);
+  .animate-rotate-bounce {
+    animation: var(--animate-rotate-bounce);
+    will-change: transform;
   }
-}
-.animate-bounce-logo {
-  animation: bounce-logo 1s ease-in-out infinite;
+  .animate-bounce-logo {
+    animation: var(--animate-bounce-logo);
+    will-change: transform;
+  }
 }
