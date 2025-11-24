@@ -13,22 +13,24 @@ import { jwtDecode } from "jwt-decode";
  * These string values must match the `Role` enum in the backend exactly
  * (minus the `ROLE_` prefix which Spring Security often handles internally).
  */
-export enum Role {
+export const Role = {
   /** Regular user - can browse, book, and view their own data. */
-  USER = "USER",
+  USER: "USER",
 
   /** Customer support - can view user data and assist with bookings. */
-  SUPPORT = "SUPPORT",
+  SUPPORT: "SUPPORT",
 
   /** Manager - can view reports and manage content. */
-  MANAGER = "MANAGER",
+  MANAGER: "MANAGER",
 
   /** Fleet manager - can manage vehicles, operators, and availability. */
-  FLEET_MANAGER = "FLEET_MANAGER",
+  FLEET_MANAGER: "FLEET_MANAGER",
 
   /** System administrator - full access to everything. */
-  ADMIN = "ADMIN",
-}
+  ADMIN: "ADMIN",
+} as const;
+
+export type Role = (typeof Role)[keyof typeof Role];
 
 /**
  * The shape of the JWT payload issued by our `auth-service`.

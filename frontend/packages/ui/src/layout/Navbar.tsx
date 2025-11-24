@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
-import { NotificationItem } from "../types/navbar";
+import type { NotificationItem } from "../types/navbar";
 import { NotificationDropdown } from "../components";
 
 export interface NavLink {
