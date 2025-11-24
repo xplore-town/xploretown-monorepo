@@ -91,6 +91,7 @@ const App = () => {
         onLogin={handleLogin}
         onLogout={handleLogout}
         user={navbarUser}
+        // notifications={[]}
         notifications={MOCK_NOTIFICATIONS}
       />
       <main className="flex-1">

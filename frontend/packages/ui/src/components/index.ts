@@ -19,4 +19,4 @@ export { default as Footer } from "../layout/Footer";
 export {
   default as NotificationDropdown,
   type NotificationDropdownProps,
-} from "./NotificationDropdown";
+} from "./navbar/NotificationDropdown";
