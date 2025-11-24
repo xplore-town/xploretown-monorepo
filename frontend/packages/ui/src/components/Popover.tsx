@@ -2,21 +2,23 @@ import React from "react";
 import { Popover as HeadlessPopover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
 export interface PopoverProps {
-  //What do you click to open it? (e.g., The Bell Icon)
   trigger: React.ReactNode;
-
-  // What shows up inside? (e.g., The list of notifications)
   children: React.ReactNode;
-
   align?: "left" | "right";
 }
 
-const Popover: React.FC<PopoverProps> = ({ trigger, children }) => {
+const Popover: React.FC<PopoverProps> = ({ trigger, children, align }) => {
   return (
     <HeadlessPopover className="relative">
-      <PopoverButton className="">{trigger}</PopoverButton>
-      <PopoverPanel transition anchor="bottom" className="">
-        {children}
+      <PopoverButton as="div" className="focus:outline-none">
+        {trigger}
+      </PopoverButton>
+      <PopoverPanel
+        transition
+        anchor="bottom end"
+        className={`z-50 h-80 w-80 rounded-xl bg-white p-2 shadow-xl transition duration-200 ease-in-out ${align === "right" ? "right-0" : "left-0"}`}
+      >
+        <div className="overflow-hidden rounded-xl">{children}</div>
       </PopoverPanel>
     </HeadlessPopover>
   );

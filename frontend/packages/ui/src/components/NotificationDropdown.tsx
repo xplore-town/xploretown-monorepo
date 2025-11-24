@@ -27,17 +27,23 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
 
       {/* Scrollable List */}
       <div className="">
-        <div className="bg-red-400">
+        <div className="">
           {notifications.length === 0 ? (
             <p>No New Notifications</p>
           ) : (
-            notifications.map((notification, i) => <p key={i}>{notification.title}</p>)
+            notifications.map((notification, i) => (
+              <div key={i}>
+                <p>{notification.id}</p>
+                <p>{notification.title}</p>
+                <p>{notification.message}</p>
+              </div>
+            ))
           )}
         </div>
 
         {/* Mark as Read */}
         <div>
-          <h1 onClick={onViewAll} className="text-red-400">
+          <h1 onClick={onViewAll} className="text-blue-600">
             Mark as Read
           </h1>
         </div>

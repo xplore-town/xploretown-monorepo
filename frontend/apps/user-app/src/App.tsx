@@ -31,6 +31,34 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     time: "5 hours ago",
     isAway: true,
   },
+  {
+    id: "4",
+    title: "System Update",
+    message: "ExploreSG will be down for maintenance at midnight.",
+    time: "5 hours ago",
+    isAway: true,
+  },
+  {
+    id: "5",
+    title: "System Update",
+    message: "ExploreSG will be down for maintenance at midnight.",
+    time: "5 hours ago",
+    isAway: true,
+  },
+  {
+    id: "6",
+    title: "System Update",
+    message: "ExploreSG will be down for maintenance at midnight.",
+    time: "5 hours ago",
+    isAway: true,
+  },
+  {
+    id: "7",
+    title: "System Update",
+    message: "ExploreSG will be down for maintenance at midnight.",
+    time: "5 hours ago",
+    isAway: true,
+  },
 ];
 const App = () => {
   const dispatch = useAppDispatch();
