@@ -13,20 +13,24 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   onViewAll,
 }) => {
   const Trigger = (
-    <div>
-      <TbBell className="size-5" />
+    <div className="relative flex h-10 w-10 cursor-pointer rounded-full bg-gray-50 p-2 shadow-md">
+      <TbBell className="size-6" />
+
+      {notifications.length > 0 && (
+        <span className="absolute top-2 right-2 size-2.5 rounded-full border-white bg-red-500 drop-shadow-lg"></span>
+      )}
     </div>
   );
 
   const Content = (
-    <div>
+    <div className="flex flex-col overflow-hidden bg-white">
       {/* Header */}
-      <div className="">
+      <div className="flex-none">
         <h1>Notifications</h1>
       </div>
 
       {/* Scrollable List */}
-      <div className="">
+      <div className="flex-1">
         <div className="">
           {notifications.length === 0 ? (
             <p>No New Notifications</p>
@@ -40,13 +44,12 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
             ))
           )}
         </div>
-
-        {/* Mark as Read */}
-        <div>
-          <h1 onClick={onViewAll} className="text-blue-600">
-            Mark as Read
-          </h1>
-        </div>
+      </div>
+      {/* Mark as Read */}
+      <div>
+        <h1 onClick={onViewAll} className="text-blue-600">
+          Mark as Read
+        </h1>
       </div>
     </div>
   );

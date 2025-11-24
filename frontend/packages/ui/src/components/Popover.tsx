@@ -63,10 +63,10 @@ const Popover: React.FC<PopoverProps> = ({
       <PopoverPanel
         transition
         anchor="bottom end"
-        className={`z-50 mt-2 h-80 w-80 rounded-xl ${className} bg-white p-2 shadow-xl transition duration-200 ease-in-out data-closed:-translate-y-2 data-closed:opacity-0 ${align === "right" ? "origin-top-right" : "origin-top-left"}`}
+        className={`z-50 mt-2 h-80 rounded-xl ${className} bg-white p-2 shadow-xl transition duration-200 ease-in-out data-closed:-translate-y-2 data-closed:opacity-0 ${align === "right" ? "origin-top-right" : "origin-top-left"}`}
       >
         {/* Inner container handles overflow clipping for rounded corners */}
-        <div className="overflow-hidden rounded-xl">{children}</div>
+        <div>{children}</div>
       </PopoverPanel>
     </HeadlessPopover>
   );
