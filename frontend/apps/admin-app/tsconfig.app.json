@@ -22,7 +22,13 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Paths */
+    "paths": {
+      "@exploresg.frontend/ui": ["../../packages/ui/src"],
+      "@exploresg.frontend/utils": ["../../packages/utils/src"]
+    }
   },
   "include": ["src"]
 }
