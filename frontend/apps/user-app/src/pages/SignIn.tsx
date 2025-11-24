@@ -1,4 +1,3 @@
-import { Card } from "@exploresg.frontend/ui";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { logger, getRoles, Role } from "@exploresg.frontend/utils";
 import axios from "axios";
@@ -68,9 +67,7 @@ const SignIn = () => {
       <h1 className="text-3xl font-bold">Sign In</h1>
       <p className="mt-4 text-gray-600">Signin Page</p>
 
-      <Card title="Sign In">
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
-      </Card>
+      <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
     </div>
   );
 };

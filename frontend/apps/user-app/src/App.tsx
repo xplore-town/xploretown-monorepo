@@ -11,16 +11,24 @@ const App = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  // 1. Select Data from Redux
+  const { isAuthenticated, userInfo } = useAppSelector((state) => state.user);
+
   const handleLogin = () => {
     navigate("/signin");
   };
   const handleLogout = () => {
     dispatch(clearUser());
-    navigate("/");
+    navigate("/signin");
   };
 
-  // 1. Select Data from Redux
-  const { isAuthenticated, userInfo } = useAppSelector((state) => state.user);
+  const navbarUser = userInfo
+    ? {
+        name: `${userInfo.givenName} ${userInfo.familyName}`, // Combine names
+        email: userInfo.email,
+        picture: userInfo.picture,
+      }
+    : null;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -29,7 +37,7 @@ const App = () => {
         isAuthenticated={isAuthenticated}
         onLogin={handleLogin}
         onLogout={handleLogout}
-        user={userInfo}
+        user={navbarUser}
       />
       <main className="flex-1">
         <Outlet />
