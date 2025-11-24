@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../branding/Logo";
+import { NotificationDropdown } from "@ui/components";
+import { NotificationItem } from "@ui/types/navbar";
 
 export interface NavLink {
   label: string;
@@ -19,6 +21,9 @@ export interface NavbarProps {
 
   isAuthenticated?: boolean;
   user?: NavbarUser | null;
+
+  notifications?: NotificationItem[];
+  onViewAllNotifications?: () => void;
 
   // Add Callback for Actions
   onLogin?: () => void;
@@ -41,7 +46,15 @@ const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
 //   return <Link to={"/signin"}>Signin</Link>;
 // };
 
-const Navbar: React.FC<NavbarProps> = ({ links, isAuthenticated, user, onLogin, onLogout }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  links,
+  isAuthenticated,
+  user,
+  onLogin,
+  onLogout,
+  notifications = [],
+  onViewAllNotifications,
+}) => {
   return (
     <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -49,6 +62,8 @@ const Navbar: React.FC<NavbarProps> = ({ links, isAuthenticated, user, onLogin, 
           <Logo />
           <Links links={links} />
         </div>
+
+        <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
 
         <div className="flex">
           {isAuthenticated && user ? (

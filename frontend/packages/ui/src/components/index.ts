@@ -15,3 +15,8 @@ export { default as Badge, type BadgeProps } from "./Badge";
 // !TODO: Move this out
 export { default as Navbar } from "../layout/Navbar";
 export { default as Footer } from "../layout/Footer";
+
+export {
+  default as NotificationDropdown,
+  type NotificationDropdownProps,
+} from "./NotificationDropdown";
