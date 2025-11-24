@@ -7,9 +7,22 @@ export interface NavLink {
   href: string;
 }
 
+export interface NavbarUser {
+  name: string;
+  email: string;
+  picture?: string;
+}
+
 export interface NavbarProps {
-  logo: React.ReactNode;
+  // logo: React.ReactNode;
   links: NavLink[];
+
+  isAuthenticated?: boolean;
+  user?: NavbarUser | null;
+
+  // Add Callback for Actions
+  onLogin?: () => void;
+  onLogout?: () => void;
 }
 
 const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
@@ -24,11 +37,11 @@ const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
   );
 };
 
-const SignIn: React.FC = () => {
-  return <Link to={"/signin"}>Signin</Link>;
-};
+// const SignIn: React.FC = () => {
+//   return <Link to={"/signin"}>Signin</Link>;
+// };
 
-const Navbar: React.FC<NavbarProps> = ({ links }) => {
+const Navbar: React.FC<NavbarProps> = ({ links, isAuthenticated, user, onLogin, onLogout }) => {
   return (
     <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -36,8 +49,13 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
           <Logo />
           <Links links={links} />
         </div>
+
         <div className="flex">
-          <SignIn />
+          {isAuthenticated ? (
+            <button onClick={onLogout}>Logout</button>
+          ) : (
+            <button onClick={onLogin}>Login</button>
+          )}
         </div>
       </div>
     </nav>
