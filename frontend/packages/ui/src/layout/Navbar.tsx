@@ -55,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({
   isAuthenticated,
   user,
   onLogin,
-  // onLogout,
+  onLogout,
   notifications = [],
   onViewAllNotifications,
   profileMenuItems,
@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <NotificationDropdown notifications={notifications} onViewAll={onViewAllNotifications} />
           {isAuthenticated && user ? (
             // <button onClick={onLogout}>Logout</button>
-            <ProfileDropdown user={user} menuItems={profileMenuItems} />
+            <ProfileDropdown user={user} menuItems={profileMenuItems} onSignOut={onLogout} />
           ) : (
             <button onClick={onLogin}>Login</button>
           )}

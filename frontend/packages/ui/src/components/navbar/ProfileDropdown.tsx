@@ -8,9 +8,10 @@ import { Role } from "@exploresg.frontend/utils";
 export interface ProfileDropdownProps {
   user: NavbarUser;
   menuItems: ProfileMenuItem[];
+  onSignOut?: () => void;
 }
 
-const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems }) => {
+const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems, onSignOut }) => {
   // Role hierarchy: ADMIN > FLEET_MANAGER > MANAGER > SUPPORT > USER
   const roleHierarchy = [Role.ADMIN, Role.FLEET_MANAGER, Role.MANAGER, Role.SUPPORT, Role.USER];
 
@@ -39,10 +40,12 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems }) =>
     <div className="flex flex-col items-start justify-center gap-3 space-y-2 text-sm text-gray-600">
       {/* Header */}
       <div className="flex gap-2">
-        <img src={user.picture} className="h-10 w-10 rounded-full" />
+        {/* <img src={user.picture} className="h-10 w-10 rounded-full" /> */}
         <div className="flex flex-col">
           <h1>{user.name}</h1>
-          <p className="text-xs text-gray-500">{getHighestRole()}</p>
+          <p className="inline-block rounded-2xl bg-green-400 px-2 text-xs text-gray-500">
+            {getHighestRole()}
+          </p>
         </div>
       </div>
 
@@ -58,6 +61,16 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ user, menuItems }) =>
           </div>
         ))}
       </div>
+
+      {/* Sign Out Button */}
+      {onSignOut && (
+        <button
+          onClick={onSignOut}
+          className="w-full rounded-md bg-red-500/70 px-2 py-1 text-xs font-medium text-white transition-colors hover:bg-red-600"
+        >
+          Sign Out
+        </button>
+      )}
     </div>
   );
 
