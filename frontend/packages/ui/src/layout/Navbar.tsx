@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <MobileMenu links={links} />
           </div>
 
-          <div className="">
+          <div className="bg-red-400 p-2">
             <Logo />
           </div>
           <DesktopLinks links={links} />
