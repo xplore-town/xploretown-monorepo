@@ -1,0 +1,12 @@
+{
+  "tailwindCSS.experimental.configFile": {
+    "packages/ui/**": "packages/ui/tailwind.config.ts"
+  },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["className\\s*=\\s*['\"`]([^'\"`]*)['\"`]", "([^'\"`]*)"]
+  ]
+}
