@@ -5,27 +5,25 @@ import type { NotificationItem, NavbarUser, ProfileMenuItem, NavLink } from "../
 import { MobileMenu, NotificationDropdown, ProfileDropdown } from "../components";
 
 export interface NavbarProps {
-  // logo: React.ReactNode;
   links: NavLink[];
-
   isAuthenticated?: boolean;
   user?: NavbarUser | null;
-
   notifications?: NotificationItem[];
   onViewAllNotifications?: () => void;
-
   profileMenuItems: ProfileMenuItem[];
-
-  // Add Callback for Actions
   onLogin?: () => void;
   onLogout?: () => void;
 }
 
-const Links: React.FC<{ links: NavLink[] }> = ({ links }) => {
+const DesktopLinks: React.FC<{ links: NavLink[] }> = ({ links }) => {
   return (
-    <div className="ml-4 flex items-center gap-2">
+    <div className="ml-4 hidden items-center gap-2 md:flex">
       {links.map((link, id) => (
-        <Link key={id} to={link.href}>
+        <Link
+          key={id}
+          to={link.href}
+          className="text-sm font-medium text-gray-700 transition-all hover:text-red-600"
+        >
           {link.label}
         </Link>
       ))}
@@ -47,9 +45,14 @@ const Navbar: React.FC<NavbarProps> = ({
     <nav className="rounded-b-2xl border-b border-gray-200 bg-white px-6 py-4 text-sm shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex gap-2">
-          <MobileMenu links={links} />
-          <Logo />
-          <Links links={links} />
+          <div className="md:hidden">
+            <MobileMenu links={links} />
+          </div>
+
+          <div className="">
+            <Logo />
+          </div>
+          <DesktopLinks links={links} />
         </div>
 
         <div className="flex items-center gap-4">

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "../../types";
+import type { NavLink } from "../../types";
 import Popover from "../Popover";
 import { TbMenu2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
@@ -23,7 +23,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ links }) => {
           to={link.href || "#"}
           className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100"
         >
-          <span className="text-lg text-gray-400">{link.icon}</span>
           <span>{link.label}</span>
         </Link>
       ))}
